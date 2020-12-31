@@ -29,17 +29,24 @@
 ;;; Code:
 
 ;;;###autoload
-(define-generic-mode 'ebnf-mode
-  '(("(*" . "*)"))
-  '("=")
-  '(("^[^ \t\n][^=]+" . font-lock-variable-name-face)
-    ("['\"].*?['\"]" . font-lock-string-face)
-    ("\\?.*\\?" . font-lock-negation-char-face)
-    ("\\[\\|\\]\\|{\\|}\\|(\\|)\\||\\|,\\|;" . font-lock-type-face)
-    ("[^ \t\n]" . font-lock-function-name-face))
-  '("\\.ebnf\\'")
-  `(,(lambda () (setq mode-name "EBNF")))
-  "Major mode for EBNF metasyntax text highlighting.")
+(add-to-list 'auto-mode-alist '("\\.ebnf\\'" . ebnf-mode))
+
+(defvar ebnf-font-lock-defaults
+  '((
+  ("=" . font-lock-keyword-face)
+  ("^[^ \t\n][^=]+" . font-lock-variable-name-face)
+  ("['\"].*?['\"]" . font-lock-string-face)
+  ("\\?.*\\?" . font-lock-negation-char-face)
+  ("\\[\\|\\]\\|{\\|}\\|(\\|)\\||\\|,\\|;" . font-lock-type-face)
+  ("[^ \t\n]" . font-lock-function-name-face)
+  )))
+
+(define-derived-mode ebnf-mode prog-mode "EBNF"
+  "Major mode for EBNF metasyntax text highlighting."
+  (setq font-lock-defaults ebnf-font-lock-defaults)
+  (setq comment-start "(*")
+  (setq comment-end "*)")
+  )
 
 (provide 'ebnf-mode)
 ;;; ebnf-mode.el ends here
