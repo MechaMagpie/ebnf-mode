@@ -7,3 +7,8 @@ fruit salad in their lives, right? So here we are with a dead simple
 syntax highlighting mode for EBNF texts.
 
 So get to it! Define some syntaxes!
+
+Modification by MechaMagpie
+---------------------------
+
+Rewrote mode definition to make ebnf-mode derive from prog-mode, so that prog-mode-hook fires and I don't have to manually turn on fci-mode. Yes, I am that lazy.
